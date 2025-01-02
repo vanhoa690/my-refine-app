@@ -30,7 +30,7 @@ export const ProductCreate = () => {
   });
   const apiUrl = useApiUrl();
 
-  const { drawerProps, formProps, saveButtonProps, formLoading } =
+  const { drawerProps, formProps, close, saveButtonProps, formLoading } =
     useDrawerForm<Product>({
       resource: "products",
       action: "create",
@@ -44,6 +44,7 @@ export const ProductCreate = () => {
       },
     });
   const onDrawerCLose = () => {
+    close();
     go({
       to: getToPath({
         action: "list",
