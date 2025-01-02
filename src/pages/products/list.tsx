@@ -14,8 +14,12 @@ import {
   StopOutlined,
 } from "@ant-design/icons";
 import { spawn } from "child_process";
+import { useGo, useNavigation } from "@refinedev/core";
 
 export const ProductList = ({ children }: PropsWithChildren) => {
+  const go = useGo();
+  const { createUrl } = useNavigation();
+
   const { tableProps } = useTable<Product>();
   const { selectProps: categorySelectProps, query: queryResult } =
     useSelect<Category>({
@@ -28,7 +32,17 @@ export const ProductList = ({ children }: PropsWithChildren) => {
   return (
     <List
       headerButtons={(props) => [
-        <CreateButton {...props.createButtonProps} key="create" size="large">
+        <CreateButton
+          onClick={() => {
+            return go({
+              to: `${createUrl("products")}`,
+              type: "replace",
+            });
+          }}
+          {...props.createButtonProps}
+          key="create"
+          size="large"
+        >
           Add Product
         </CreateButton>,
       ]}
