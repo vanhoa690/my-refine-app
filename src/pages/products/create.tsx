@@ -20,9 +20,11 @@ import {
   useDrawerForm,
   useSelect,
 } from "@refinedev/antd";
-import { useApiUrl } from "@refinedev/core";
+import { useApiUrl, useGetToPath, useGo } from "@refinedev/core";
 
 export const ProductCreate = () => {
+  const go = useGo();
+  const getToPath = useGetToPath();
   const { selectProps: categorySelectProps } = useSelect<Category>({
     resource: "categories",
   });
@@ -35,7 +37,11 @@ export const ProductCreate = () => {
       redirect: false,
     });
   const onDrawerCLose = () => {
-    close();
+    go({
+      to: getToPath({
+        action: "list",
+      }),
+    });
   };
 
   const images = Form.useWatch("images", formProps.form);

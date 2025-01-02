@@ -19,6 +19,7 @@ import { useGo, useNavigation } from "@refinedev/core";
 export const ProductList = ({ children }: PropsWithChildren) => {
   const go = useGo();
   const { createUrl } = useNavigation();
+  const { showUrl } = useNavigation();
 
   const { tableProps } = useTable<Product>();
   const { selectProps: categorySelectProps, query: queryResult } =
@@ -126,8 +127,17 @@ export const ProductList = ({ children }: PropsWithChildren) => {
         <Table.Column
           key="actions"
           title="Actions"
-          render={() => {
-            return <Button icon={<EyeOutlined />} />;
+          render={(_, record: Product) => {
+            return (
+              <Button
+                icon={<EyeOutlined />}
+                onClick={() => {
+                  return go({
+                    to: `${showUrl("products", record.id)}`,
+                  });
+                }}
+              />
+            );
           }}
         />
       </Table>
