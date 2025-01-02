@@ -20,9 +20,9 @@ import {
   useDrawerForm,
   useSelect,
 } from "@refinedev/antd";
-import { useApiUrl, useGetToPath, useGo } from "@refinedev/core";
+import { BaseKey, useApiUrl, useGetToPath, useGo } from "@refinedev/core";
 
-export const ProductCreate = () => {
+export const ProductEdit = () => {
   const go = useGo();
   const getToPath = useGetToPath();
   const { selectProps: categorySelectProps } = useSelect<Category>({
@@ -33,7 +33,7 @@ export const ProductCreate = () => {
   const { drawerProps, formProps, saveButtonProps, formLoading } =
     useDrawerForm<Product>({
       resource: "products",
-      action: "create",
+      action: "edit",
       redirect: false,
       onMutationSuccess: () => {
         go({

@@ -1,33 +1,14 @@
-import { CloseOutlined, EditOutlined, UploadOutlined } from "@ant-design/icons";
-import {
-  Avatar,
-  Button,
-  Divider,
-  Drawer,
-  Flex,
-  Form,
-  Input,
-  InputNumber,
-  Segmented,
-  Select,
-  Spin,
-  Typography,
-  Upload,
-} from "antd";
+import { EditOutlined } from "@ant-design/icons";
+import { Avatar, Button, Divider, Drawer, Flex, List, Typography } from "antd";
 import { Category, Product } from "../../types";
-import {
-  DeleteButton,
-  getValueFromEvent,
-  SaveButton,
-  useDrawerForm,
-  useSelect,
-} from "@refinedev/antd";
+import { DeleteButton } from "@refinedev/antd";
 import {
   BaseKey,
   HttpError,
-  useApiUrl,
   useGetToPath,
   useGo,
+  useNavigation,
+  useOne,
   useShow,
 } from "@refinedev/core";
 
@@ -40,11 +21,22 @@ type Props = {
 export const ProductShow = (props: Props) => {
   const go = useGo();
   const getToPath = useGetToPath();
+  const { editUrl } = useNavigation();
+
   const { query: queryResult } = useShow<Product, HttpError>({
     resource: "products",
     id: props?.id, // when undefined, id will be read from the URL.
   });
   const product = queryResult.data?.data;
+
+  const { data: categoryData } = useOne<Category, HttpError>({
+    resource: "categories",
+    id: product?.category?.id,
+    queryOptions: {
+      enabled: !!product?.category?.id,
+    },
+  });
+  const category = categoryData?.data;
 
   const onDrawerCLose = () => {
     go({
@@ -82,6 +74,35 @@ export const ProductShow = (props: Props) => {
         <Typography.Text type="secondary">
           {product?.description}
         </Typography.Text>
+        <List
+          dataSource={[
+            {
+              label: (
+                <Typography.Text type="secondary">Category</Typography.Text>
+              ),
+              value: <Typography.Text>{category?.title}</Typography.Text>,
+            },
+            {
+              label: <Typography.Text type="secondary">Status</Typography.Text>,
+              value: (
+                <span>{product?.isActive ? "Available" : "Unavailable"}</span>
+              ),
+            },
+          ]}
+          renderItem={(item) => {
+            return (
+              <List.Item>
+                <List.Item.Meta
+                  style={{
+                    padding: "0 16px",
+                  }}
+                  avatar={item.label}
+                  title={item.value}
+                />
+              </List.Item>
+            );
+          }}
+        />
       </Flex>
       <Divider
         style={{
@@ -96,8 +117,21 @@ export const ProductShow = (props: Props) => {
           padding: "16px 16px 16px 0",
         }}
       >
-        <DeleteButton resource="products" type="text" />
-        <Button icon={<EditOutlined />}>Edit</Button>
+        <DeleteButton
+          resource="products"
+          onSuccess={onDrawerCLose}
+          type="text"
+        />
+        <Button
+          onClick={() => {
+            return go({
+              to: `${editUrl("products", product?.id || "")}`,
+            });
+          }}
+          icon={<EditOutlined />}
+        >
+          Edit
+        </Button>
       </Flex>
     </Drawer>
   );

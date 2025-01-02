@@ -17,6 +17,7 @@ import { DashboardOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import { ProductCreate, ProductList } from "./pages/products";
 import { RefineKbarProvider, RefineKbar } from "@refinedev/kbar";
 import { ProductShow } from "./pages/products/show";
+import { ProductEdit } from "./pages/products/edit";
 
 function App() {
   const API_URL = "https://api.finefoods.refine.dev";
@@ -73,7 +74,7 @@ function App() {
                 <Route path="new" element={<ProductCreate />} />
 
                 <Route path=":id" element={<ProductShow />} />
-                {/* <Route path=":id/edit" element={<ProductEdit />} /> */}
+                <Route path=":id/edit" element={<ProductEdit />} />
               </Route>
             </Route>
           </Routes>

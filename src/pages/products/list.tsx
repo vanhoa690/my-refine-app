@@ -118,7 +118,7 @@ export const ProductList = ({ children }: PropsWithChildren) => {
                     color: "#3C8618",
                   }}
                 >
-                  {isActive ? "Unavailable" : "Available"}
+                  {isActive ? "Available" : "Unavailable"}
                 </Typography.Text>
               </Tag>
             );
