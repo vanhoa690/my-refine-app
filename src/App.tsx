@@ -1,6 +1,6 @@
 import { Refine } from "@refinedev/core";
 
-import { useNotificationProvider } from "@refinedev/antd";
+import { ThemedLayoutV2, useNotificationProvider } from "@refinedev/antd";
 import "@refinedev/antd/dist/reset.css";
 
 import {
@@ -53,19 +53,27 @@ function App() {
           ]}
         >
           <Routes>
-            <Route index element={<PostList />} />
             <Route
-              path="/products"
               element={
-                <ProductList>
+                <ThemedLayoutV2>
                   <Outlet />
-                </ProductList>
+                </ThemedLayoutV2>
               }
             >
-              <Route path="new" element={<ProductCreate />} />
-              {/* 
+              <Route index element={<PostList />} />
+              <Route
+                path="/products"
+                element={
+                  <ProductList>
+                    <Outlet />
+                  </ProductList>
+                }
+              >
+                <Route path="new" element={<ProductCreate />} />
+                {/* 
           <Route path=":id" element={<ProductShow />} />
           <Route path=":id/edit" element={<ProductEdit />} /> */}
+              </Route>
             </Route>
           </Routes>
           <RefineKbar />
