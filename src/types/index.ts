@@ -28,3 +28,9 @@ export interface IFile {
   uid: string;
   url: string;
 }
+
+export interface ISalesChart {
+  date: string;
+  title?: "Order Count" | "Order Amount";
+  value: number;
+}

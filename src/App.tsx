@@ -4,7 +4,6 @@ import { ThemedLayoutV2, useNotificationProvider } from "@refinedev/antd";
 import "@refinedev/antd/dist/reset.css";
 
 import { BrowserRouter, Outlet, Route, Routes } from "react-router";
-import { PostList } from "./pages/List";
 import routerProvider, {
   CatchAllNavigate,
   NavigateToResource,
@@ -17,6 +16,7 @@ import { ProductShow } from "./pages/products/show";
 import { ProductEdit } from "./pages/products/edit";
 import { AuthPage } from "./pages/auth";
 import { authProvider } from "./authProvider";
+import { DashboardPage } from "./pages/dashboard";
 
 function App() {
   const API_URL = "https://api.finefoods.refine.dev";
@@ -103,7 +103,7 @@ function App() {
                 </Authenticated>
               }
             >
-              <Route index element={<PostList />} />
+              <Route index element={<DashboardPage />} />
               <Route
                 path="/products"
                 element={
