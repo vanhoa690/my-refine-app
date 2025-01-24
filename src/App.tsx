@@ -11,6 +11,7 @@ import routerProvider, {
 import jsonServerDataProvider from "@refinedev/simple-rest";
 import {
   DashboardOutlined,
+  ShoppingOutlined,
   UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -21,10 +22,11 @@ import {
   ProductShow,
 } from "@/pages/products";
 import { RefineKbarProvider, RefineKbar } from "@refinedev/kbar";
-import { AuthPage } from "./pages/auth";
+import { AuthPage } from "pages/auth";
 import { authProvider } from "./authProvider";
-import { DashboardPage } from "./pages/dashboard";
-import { UserList, UserShow } from "@/pages/users";
+import { DashboardPage } from "pages/dashboard";
+import { UserList, UserShow } from "pages/users";
+import { BookingList, BookingShow } from "pages/bookings";
 
 function App() {
   // const API_URL = "https://api.finefoods.refine.dev";
@@ -49,6 +51,14 @@ function App() {
               meta: {
                 label: "Dashboard",
                 icon: <DashboardOutlined />,
+              },
+            },
+            {
+              name: "bookings",
+              list: "/bookings",
+              show: "/bookings/:id",
+              meta: {
+                icon: <ShoppingOutlined />,
               },
             },
             {
@@ -121,6 +131,10 @@ function App() {
               }
             >
               <Route index element={<DashboardPage />} />
+              <Route path="/bookings">
+                <Route index element={<BookingList />} />
+                <Route path=":id" element={<BookingShow />} />
+              </Route>
               <Route
                 path="/users"
                 element={
