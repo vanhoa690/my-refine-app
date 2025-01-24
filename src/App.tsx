@@ -9,14 +9,22 @@ import routerProvider, {
   NavigateToResource,
 } from "@refinedev/react-router";
 import jsonServerDataProvider from "@refinedev/simple-rest";
-import { DashboardOutlined, UnorderedListOutlined } from "@ant-design/icons";
-import { ProductCreate, ProductList } from "./pages/products";
+import {
+  DashboardOutlined,
+  UnorderedListOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import {
+  ProductCreate,
+  ProductList,
+  ProductEdit,
+  ProductShow,
+} from "@/pages/products";
 import { RefineKbarProvider, RefineKbar } from "@refinedev/kbar";
-import { ProductShow } from "./pages/products/show";
-import { ProductEdit } from "./pages/products/edit";
 import { AuthPage } from "./pages/auth";
 import { authProvider } from "./authProvider";
 import { DashboardPage } from "./pages/dashboard";
+import { UserList, UserShow } from "@/pages/users";
 
 function App() {
   // const API_URL = "https://api.finefoods.refine.dev";
@@ -41,6 +49,14 @@ function App() {
               meta: {
                 label: "Dashboard",
                 icon: <DashboardOutlined />,
+              },
+            },
+            {
+              name: "users",
+              list: "/users",
+              show: "/users/:id",
+              meta: {
+                icon: <UserOutlined />,
               },
             },
             {
@@ -105,6 +121,16 @@ function App() {
               }
             >
               <Route index element={<DashboardPage />} />
+              <Route
+                path="/users"
+                element={
+                  <UserList>
+                    <Outlet />
+                  </UserList>
+                }
+              >
+                <Route path=":id" element={<UserShow />} />
+              </Route>
               <Route
                 path="/products"
                 element={

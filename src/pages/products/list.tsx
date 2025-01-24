@@ -16,6 +16,7 @@ export const ProductList = ({ children }: PropsWithChildren) => {
 
   return (
     <List
+      breadcrumb={false}
       headerButtons={(props) => [
         <CreateButton
           onClick={() => {
