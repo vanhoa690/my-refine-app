@@ -19,7 +19,8 @@ import { authProvider } from "./authProvider";
 import { DashboardPage } from "./pages/dashboard";
 
 function App() {
-  const API_URL = "https://api.finefoods.refine.dev";
+  // const API_URL = "https://api.finefoods.refine.dev";
+  const API_URL = "http://localhost:3000";
   const dataProvider = jsonServerDataProvider(API_URL);
   return (
     <BrowserRouter>
@@ -93,14 +94,14 @@ function App() {
             </Route>
             <Route
               element={
-                <Authenticated
-                  key="authenticated-routes"
-                  fallback={<CatchAllNavigate to="/login" />}
-                >
-                  <ThemedLayoutV2>
-                    <Outlet />
-                  </ThemedLayoutV2>
-                </Authenticated>
+                // <Authenticated
+                //   key="authenticated-routes"
+                //   fallback={<CatchAllNavigate to="/login" />}
+                // >
+                <ThemedLayoutV2>
+                  <Outlet />
+                </ThemedLayoutV2>
+                // </Authenticated>
               }
             >
               <Route index element={<DashboardPage />} />
